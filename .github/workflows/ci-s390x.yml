@@ -33,7 +33,7 @@ env:
 
 jobs:
   setup:
-    runs-on: S390X
+    runs-on: ubuntu-22.04-s390x
     # Only run scheduled jobs if we're on the right branch
     if: github.event_name != 'schedule' || contains(fromJSON('["odbc-3.1", "master"]'), github.ref_name)
     outputs:
@@ -74,7 +74,7 @@ jobs:
           os: ${{ matrix.os }}
 
       - name: make ubuntu
-        if: ${{ startsWith(matrix.os, 'S390X') }}
+        if: ${{ startsWith(matrix.os, 'ubuntu-22.04-s390x') }}
         run: |
           sudo apt install unixodbc-dev
           cmake -DCONC_WITH_MSI=OFF -DCONC_WITH_UNIT_TESTS=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DWITH_SSL=OPENSSL .
